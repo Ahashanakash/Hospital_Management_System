@@ -6,7 +6,10 @@ from . import serializers
 from rest_framework.permissions import AllowAny
 from django.core.mail import send_mail, EmailMessage
 from django.conf import settings
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
 
+@method_decorator(csrf_exempt, name='dispatch')
 class ContactusViewset(viewsets.ModelViewSet):
     permission_classes = [AllowAny]
     queryset = models.ContactUs.objects.all()

@@ -31,6 +31,7 @@ SECRET_KEY = env("SECRET_KEY")
 DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
+CSRF_TRUSTED_ORIGINS = ['https://my-hospital-b5sn.onrender.com', 'https://*.127.0.0.1']
 
 
 # Application definition
