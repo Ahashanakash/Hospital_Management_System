@@ -28,7 +28,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 CSRF_TRUSTED_ORIGINS = ['https://my-hospital-b5sn.onrender.com', 'https://*.127.0.0.1']
@@ -88,11 +88,10 @@ WSGI_APPLICATION = 'Hospital_Management_System.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.config(
-        # Replace this value with your local database's connection string.
-        default='postgresql://hospital_management_system_4q6f_user:JiNpVJJJHs8JyYo6t90b393bcsEm1e0H@dpg-d2rdnjidbo4c73d6o9mg-a.oregon-postgres.render.com/hospital_management_system_4q6f',
-        # conn_max_age=600
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 }
 
 REST_FRAMEWORK = {
