@@ -31,7 +31,16 @@ SECRET_KEY = env("SECRET_KEY")
 DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
-CSRF_TRUSTED_ORIGINS = ['https://my-hospital-083e.onrender.com', 'https://*.127.0.0.1']
+CORS_ALLOWED_ORIGINS = [
+    'http://127.0.0.1:5500',
+    'http://localhost:5500',
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://my-hospital-083e.onrender.com',
+    'http://127.0.0.1:5500',
+    'http://localhost:5500',
+]
 
 
 # Application definition
@@ -51,6 +60,7 @@ INSTALLED_APPS = [
     'doctor',
     'patient',
     'service',
+    'corsheaders',
 ]
 
 
@@ -62,6 +72,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
 
 ROOT_URLCONF = 'Hospital_Management_System.urls'
