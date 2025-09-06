@@ -37,6 +37,23 @@ class AvailableTimeSerializer(serializers.ModelSerializer):
         fields = '__all__'
         
 class ReviewSerializer(serializers.ModelSerializer):
+    reviewer_name = serializers.SerializerMethodField()
+    reviewer_image = serializers.SerializerMethodField()
+    doctor_name = serializers.SerializerMethodField()
+    doctor_image = serializers.SerializerMethodField()
+    
+    def get_reviewer_name(self, obj):
+        return f"{obj.reviewer.user.first_name} {obj.reviewer.user.last_name}" if obj.reviewer and obj.reviewer.user else None
+    
+    def get_reviewer_image(self, obj):
+        return f"{obj.reviewer.image}" if obj.reviewer and obj.reviewer.user else None
+    
+    def get_doctor_name(self, obj):
+        return f"{obj.doctor.user.first_name} {obj.doctor.user.last_name}" if obj.doctor and obj.doctor.user else None
+    
+    def get_doctor_image(self, obj):
+        return f"{obj.doctor.image}" if obj.doctor and obj.doctor.user else None
+    
     class Meta:
         model = models.Review
-        fields = '__all__'
+        fields = ['id', 'reviewer_name', 'doctor_name','reviewer_image','doctor_image', 'body', 'created', 'rating']
