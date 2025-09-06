@@ -32,11 +32,17 @@ class AvailableTimeViewset(viewsets.ModelViewSet):
     serializer_class = serializers.AvailableTimeSerializer
     filter_backends = [AvailableTimeForSpecificDoctor]
     
+class DoctorPagination(pagination.PageNumberPagination):
+    page_size = 4 # items per page
+    page_size_query_param = page_size
+    max_page_size = 100
+    
 class DoctorViewset(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticatedOrReadOnly]
     queryset = models.Doctor.objects.all()
     serializer_class = serializers.DoctorSerializer
     filter_backends = [filters.SearchFilter]
+    pagination_class = DoctorPagination
     search_fields = ['user__first_name', 'user__email', 'designation__name', 'specialization__name']
     
 class ReviewViewset(viewsets.ModelViewSet):
@@ -44,7 +50,3 @@ class ReviewViewset(viewsets.ModelViewSet):
     queryset = models.Review.objects.all()
     serializer_class = serializers.ReviewSerializer
     
-class DoctorPagination(pagination.PageNumberPagination):
-    page_size = 1 # items per page
-    page_size_query_param = page_size
-    max_page_size = 100
